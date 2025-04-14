@@ -1,6 +1,15 @@
 <?php
 
+use App\Http\Controllers\DeskController;
 use Illuminate\Support\Facades\Route;
+
+
+ 
+Route::controller(DeskController::class)->group(function () {
+    Route::prefix('desk')->group(function () {
+        Route::get('/show', 'show');
+    });
+})->middleware(['auth', 'verified']);
 
 Route::view('/', 'welcome');
 
