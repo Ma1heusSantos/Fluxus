@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->string('cpf');
             $table->unsignedBigInteger('address_id');
             $table->string('observation')->nullable();
 

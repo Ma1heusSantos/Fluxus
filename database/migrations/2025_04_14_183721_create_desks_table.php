@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('desks', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->enum('status',['open','closed']);
             $table->timestamps();
         });
     }

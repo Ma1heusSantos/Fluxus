@@ -23,6 +23,10 @@ class DeskController extends Controller
         //
     }
 
+    public function newDesk(){
+        return view('desk.newDesk');
+    }
+
     /**
      * Store a newly created resource in storage.
      */

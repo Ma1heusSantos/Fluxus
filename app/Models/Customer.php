@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    protected $filable = ['date','phone','address_id','observation'];
+    protected $filable = ['name','phone','cpf','address_id','observation'];
 
 }
