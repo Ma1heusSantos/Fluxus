@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Desk extends Model
 {
     use HasFactory;
-    protected $filable = ['date'];
+    protected $fillable = ['date'];
 
 
     public function entries(): HasMany

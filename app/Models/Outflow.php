@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Outflow extends Model
 {
     use HasFactory;
-    protected $filable = ['name','value','method','desk_id'];
+    protected $fillable = ['name','value','method','desk_id'];
 
 
     public function Desk(): BelongsTo

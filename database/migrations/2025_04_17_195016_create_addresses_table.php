@@ -19,8 +19,11 @@ return new class extends Migration
             $table->string('neighborhood');
             $table->string('complement')->nullable();
             $table->string('code');
+            $table->unsignedBigInteger('customer_id');
             $table->string('state');
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adresses');
+        Schema::dropIfExists('addresses');
     }
 };

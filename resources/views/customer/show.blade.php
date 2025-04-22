@@ -50,14 +50,14 @@
             <div class="mb-4">
                 <label for="cpf" class="block text-sm font-semibold text-gray-700 mb-1">CPF</label>
                 <input name="cpf" type="text" id="cpf"
-                    class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                    class="cpf w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
             </div>
 
             <!-- Telefone -->
             <div class="mb-4">
                 <label for="phone" class="block text-sm font-semibold text-gray-700 mb-1">Telefone</label>
                 <input name="phone" type="text" id="phone"
-                    class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                    class="phone w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
             </div>
 
             <!-- Endereço - Rua -->

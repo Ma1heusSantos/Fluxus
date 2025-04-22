@@ -4,23 +4,30 @@ namespace App\Livewire\Customer;
 
 use App\Models\Customer;
 use Exception;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public $customer;
+    use WithPagination;
     public $search;
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
     public function render()
     {
         try{
-            $this->customer = Customer::where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('cpf', 'like', '%' . $this->search . '%')->get();
+            $customers = Customer::where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('cpf', 'like', '%' . $this->search . '%')
+            ->paginate(5);
 
-            return view('livewire.customer.show',['customer'=>$this->customer]);
+            return view('livewire.customer.show',['customers'=>$customers]);
        }catch(Exception $e){
             Log::info($e->getMessage());
-            $this->customer = collect();
+            $customer = collect();
        }
     }
     

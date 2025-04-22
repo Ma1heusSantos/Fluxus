@@ -16,10 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('cpf');
-            $table->unsignedBigInteger('address_id');
             $table->string('observation')->nullable();
-
-            $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fluxus</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="./images/icon.svg">
 
 
@@ -23,7 +27,7 @@
                 Fluxus
             </div>
             <nav class="mt-10">
-                <a href="#" class="flex items-center px-6 py-2 gap-3 text-gray-800 bg-gray-200">
+                <a href="{{ route('show') }}" class="flex items-center px-6 py-2 gap-3 text-gray-800 bg-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -63,7 +67,41 @@
 </body>
 
 <script>
-    @yield('script')
+    $(document).ready(function() {
+
+        // Máscara para CPF
+        var $cpf = $(".cpf");
+        $cpf.mask('000.000.000-00', {
+            reverse: true
+        });
+
+        // Máscara para telefone
+        var $phone = $(".phone");
+        $phone.mask('(00) 0 0000-0000');
+
+        // Máscara para CNPJ
+        var $cnpj = $(".cnpj");
+        $cnpj.mask('00.000.000/0000-00', {
+            reverse: true
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session()->has('global-success'))
+            Swal.fire({
+                title: 'Sucesso!',
+                text: "{{ session('message') }}",
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        @elseif (session()->has('global-error'))
+            Swal.fire({
+                title: 'Erro!',
+                text: "{{ session('message') }}",
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        @endif
+    });
 </script>
 
 </html>

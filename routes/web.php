@@ -17,6 +17,7 @@ Route::controller(customerController::class)->group(function () {
     Route::prefix('customer')->group(function () {
         Route::get('/show', 'show')->name('customer.show');
         Route::post('/create', 'create')->name('customer.create');
+        Route::get('/destroy/{id}', 'destroy')->name('customer.destroy');
     });
 })->middleware(['auth', 'verified']);
 

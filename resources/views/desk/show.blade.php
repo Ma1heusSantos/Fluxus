@@ -19,16 +19,6 @@
                 novo Caixa</a>
         </div>
 
-        @foreach ($desks as $desk)
-            <div class="bg-white p-6 rounded shadow mb-4">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-semibold">
-                        {{ \Carbon\Carbon::parse($desk->date)->translatedFormat('j \d\e F \d\e Y') }}
-                    </h2>
-                    <p class="text-xs text-white bg-red-500 px-2 py-1 rounded">fechado</p>
-                    <button class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Ver Caixa</button>
-                </div>
-            </div>
-        @endforeach
+        <livewire:desk.show>
     </main>
 @endsection

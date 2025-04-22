@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Customer;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class customerController extends Controller
@@ -30,8 +31,9 @@ class customerController extends Controller
             'neighborhood' => 'required|string|max:100',
             'complement' => 'nullable|string|max:100',
             'code' => 'required|string|max:10', 
-            'state' => 'required|string|size:2', 
-        
+            'state' => 'required|string|size:2',
+            'observation'=> 'nullable|string|max:100',
+            
             'name' => 'required|string|max:255',
             'phone' => 'required|string|regex:/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/',
             'cpf' => 'required|string|size:11|unique:customers,cpf',
@@ -39,27 +41,35 @@ class customerController extends Controller
 
         
         try{
-            $address = Address::create([
+
+            $customer = Customer::create([
+                'name'=> $request->name,
+                'phone'=> $request->phone,
+                'cpf'=> $request->cpf,
+                'observation'=>$request->observation,
+            ]);
+
+            Address::create([
                 'street'=> $request->street,
                 'number'=> $request->number,
                 'city'=> $request->city,
                 'neighborhood'=> $request->neighborhood,
                 'complement'=> $request->complement,
                 'code'=>$request->code,
-                'state'=>$request->state
+                'state'=>$request->state,
+                'customer_id'=> $customer->id,
                 
             ]);
-            Customer::create([
-                'name'=> $request->name,
-                'phone'=> $request->phone,
-                'cpf'=> $request->cpf,
-                'address_id'=> $address->id,
-            ]);
+    
+           
 
+            session()->flash('global-success',true);
+            session()->flash('message', 'Cliente criado com sucesso!');
             return redirect()->route('customer.show');
             
         }catch(Exception $e){
             Log::error($e->getMessage());
+            session()->flash('global-error',true);
         }
     }
 
@@ -101,6 +111,22 @@ class customerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $customer = Customer::find($id);
+            if (!$customer){
+                return redirect()->back()->withErrors('Cliente não encontrado.')->withInput();
+            }
+            
+            $customer->delete();
+            DB::commit();
+            session()->flash('global-success',true);
+            session()->flash('message', 'cliente excluido com sucesso!');
+            return redirect()->route('customer.show');
+        }catch(Exception $e){
+            DB::rollBack();
+            Log::info($e->getMessage());
+            session()->flash('global-error',true);
+        }
     }
 }
