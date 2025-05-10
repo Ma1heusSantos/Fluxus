@@ -1,46 +1,77 @@
 @extends('layouts.template')
 
 @section('content')
-    <!-- Tabela Contas Recentes -->
-    <div class="bg-white p-6 rounded shadow">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-semibold">Contas Recentes</h2>
-            <button class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Nova Conta</button>
+    <main class="flex-1 p-6">
+        <!-- Top bar -->
+        <div class="flex flex-row-reverse justify-between items-center mb-6">
+            <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                </svg>
+            </div>
         </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-                <thead>
-                    <tr class="border-b text-gray-500">
-                        <th class="py-2">CLIENTE</th>
-                        <th>VALOR</th>
-                        <th>PARCELAS</th>
-                        <th>STATUS</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="py-2 flex items-center gap-2">
-                            <img src="https://i.imgur.com/wSTFkRM.png" class="w-6 h-6 rounded-full" />
-                            João Silva
-                        </td>
-                        <td>R$ 1.500,00</td>
-                        <td>6/12</td>
-                        <td><span class="text-xs text-white bg-green-500 px-2 py-1 rounded">Em dia</span></td>
-                        <td><span class="text-xl cursor-pointer">&#8942;</span></td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="py-2 flex items-center gap-2">
-                            <img src="https://i.imgur.com/wSTFkRM.png" class="w-6 h-6 rounded-full" />
-                            Maria Santos
-                        </td>
-                        <td>R$ 2.800,00</td>
-                        <td>3/24</td>
-                        <td><span class="text-xs text-white bg-yellow-400 px-2 py-1 rounded">Pendente</span></td>
-                        <td><span class="text-xl cursor-pointer">&#8942;</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <livewire:bill.show>
+    </main>
+
+
+
+    <!-- Animação simples -->
+    <style>
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hide-scrollbar {
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE e Edge antigo */
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+            display: none;
+            /* Safari, Chrome, Opera */
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const openBtn = document.getElementById("openModal");
+            const closeBtn = document.getElementById("closeModal");
+            const modal = document.getElementById("modal");
+
+            openBtn.addEventListener("click", () => {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+            });
+
+            closeBtn.addEventListener("click", () => {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+            });
+
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    modal.classList.add("hidden");
+                    modal.classList.remove("flex");
+                }
+            });
+        });
+    </script>
 @endsection

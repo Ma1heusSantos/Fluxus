@@ -11,7 +11,9 @@ class Show extends Component
     public function render()
     {
         $desks = Desk::where('date', 'like', '%' . $this->search . '%')
+            ->orderBy('date', 'desc')
             ->paginate(5);
+
         return view('livewire.desk.show',['desks'=>$desks]);
     }
 }

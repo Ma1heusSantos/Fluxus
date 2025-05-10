@@ -18,6 +18,7 @@ class DeskFactory extends Factory
     {
         return [
             'date' => $this->faker->date(),
+            'status'=>'closed'
         ];
     }
 }

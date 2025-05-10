@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->float('entry')->nullable();
             $table->float('value');
-            $table->enum('method',['pix','cartão','cheque','dinheiro']);
             $table->unsignedBigInteger('desk_id');
-
+      
             $table->foreign('desk_id')->references('id')->on('desks')->onDelete('cascade');
             $table->timestamps();
         });

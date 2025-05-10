@@ -5,10 +5,7 @@
     @endif
     @if ($desks->isNotEmpty())
         <div class="bg-white p-6 rounded shadow mb-4">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold">Caixas</h2>
-                <button id="openModal" class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Receber</button>
-            </div>
+            <h1 class="text-lg font-semibold mb-4">Caixas</h1>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead>
@@ -21,7 +18,6 @@
                     <tbody>
                         @foreach ($desks as $desk)
                             <tr class="border-b hover:bg-gray-100 transition duration-150 ease-in-out">
-                                <!-- Data formatada -->
                                 <td class="px-4 py-3 text-gray-700 text-sm whitespace-nowrap">
                                     {{ \Carbon\Carbon::parse($desk->date)->translatedFormat('j \d\e F \d\e Y') }}
                                 </td>
@@ -43,8 +39,9 @@
 
                                 <!-- Botão estilizado -->
                                 <td class="px-4 py-3 text-center">
-                                    <button class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Ver
-                                        Caixa</button>
+                                    <a href="{{ route('desk.details', $desk->id) }}"
+                                        class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Ver
+                                        Caixa</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -53,7 +50,7 @@
                 </table>
             </div>
         </div>
-        <div class="">
+        <div>
             {{ $desks->links() }}
         </div>
     @else

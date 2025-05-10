@@ -6,7 +6,7 @@
     @if ($customers->isNotEmpty())
         <div class="bg-white p-6 rounded shadow mb-4">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold">Contas Recebidas</h2>
+                <h2 class="text-lg font-semibold">Clientes</h2>
                 <button id="openModal" class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Receber</button>
             </div>
             <div class="overflow-x-auto">

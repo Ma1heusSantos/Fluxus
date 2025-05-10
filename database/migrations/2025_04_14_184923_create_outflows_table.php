@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('value');
-            $table->enum('method',['pix','cartão','cheque','dinheiro']);
             $table->unsignedBigInteger('desk_id');
 
             $table->foreign('desk_id')->references('id')->on('desks')->onDelete('cascade');

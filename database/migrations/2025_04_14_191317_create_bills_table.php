@@ -16,7 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('desk_id');
             $table->unsignedBigInteger('customer_id');
             $table->date('date');
+            $table->float('entry')->nullable();
             $table->integer('allotment');
+            $table->date('expiration_data');
+            $table->float('value');
             $table->string('product_name');
             $table->enum('status',['paga','pendente']);
             $table->timestamps();

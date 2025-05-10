@@ -31,7 +31,7 @@
 
 <!-- Modal -->
 <div id="modal"
-    class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50 transition-all duration-300">
+    class="fixed inset-0 bg-black bg-opacity-40 {{ $errors->any() ? 'flex' : 'hidden' }} items-center justify-center z-50 transition-all duration-300">
     <div
         class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg relative animate-fade-in max-h-[90vh] overflow-y-auto hide-scrollbar">
 
@@ -41,81 +41,120 @@
             @csrf
             <!-- Nome -->
             <div class="mb-4">
-                <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">Nome</label>
-                <input name="name" type="text" id="name"
+                <label for="name" class="block text-sm font-semibold text-gray-700 ">Nome</label>
+                <input name="name" type="text" id="name" value="{{ old('name') }}"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
             </div>
+            @error('name')
+                <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+            @enderror
 
             <!-- CPF -->
             <div class="mb-4">
-                <label for="cpf" class="block text-sm font-semibold text-gray-700 mb-1">CPF</label>
-                <input name="cpf" type="text" id="cpf"
+                <label for="cpf" class="block text-sm font-semibold text-gray-700 ">CPF</label>
+                <input name="cpf" type="text" id="cpf" value="{{ old('cpf') }}"
                     class="cpf w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
             </div>
+            @error('cpf')
+                <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+            @enderror
 
             <!-- Telefone -->
             <div class="mb-4">
-                <label for="phone" class="block text-sm font-semibold text-gray-700 mb-1">Telefone</label>
-                <input name="phone" type="text" id="phone"
+                <label for="phone" class="block text-sm font-semibold text-gray-700 ">Telefone</label>
+                <input name="phone" type="text" id="phone" value="{{ old('phone') }}"
                     class="phone w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
             </div>
+            @error('phone')
+                <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+            @enderror
 
             <!-- Endereço - Rua -->
             <div class="mb-4">
-                <label for="street" class="block text-sm font-semibold text-gray-700 mb-1">Rua</label>
-                <input name="street" type="text" id="street"
+                <label for="street" class="block text-sm font-semibold text-gray-700 ">Rua</label>
+                <input name="street" type="text" id="street" value="{{ old('street') }}"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
             </div>
+            @error('street')
+                <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+            @enderror
 
 
             <!-- Endereço - cep e numero -->
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label for="number" class="block text-sm font-semibold text-gray-700 mb-1">Número</label>
-                    <input name="number" type="text" id="number"
+                    <label for="number" class="block text-sm font-semibold text-gray-700 ">Número</label>
+                    <input name="number" type="text" id="number" value="{{ old('number') }}"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                    @error('number')
+                        <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <div>
-                    <label for="code" class="block text-sm font-semibold text-gray-700 mb-1">CEP</label>
-                    <input name="code" type="text" id="code"
+                    <label for="code" class="block text-sm font-semibold text-gray-700 ">CEP</label>
+                    <input name="code" type="text" id="code" value="{{ old('code') }}"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                    @error('code')
+                        <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
             </div>
 
             <!-- Endereço - Cidade e Estado -->
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label for="city" class="block text-sm font-semibold text-gray-700 mb-1">Cidade</label>
-                    <input name="city" type="text" id="city"
+                    <label for="city" class="block text-sm font-semibold text-gray-700 ">Cidade</label>
+                    <input name="city" type="text" id="city" value="{{ old('city') }}"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                    @error('city')
+                        <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <div>
-                    <label for="state" class="block text-sm font-semibold text-gray-700 mb-1">Estado</label>
-                    <input name="state" type="text" id="state"
+                    <label for="state" class="block text-sm font-semibold text-gray-700 ">Estado</label>
+                    <input name="state" type="text" id="state" value="{{ old('state') }}"
                         class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                    @error('state')
+                        <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
             </div>
 
-            <!-- Endereço - Rua -->
+            <!-- Endereço - Bairro -->
             <div class="mb-4">
-                <label for="complement" class="block text-sm font-semibold text-gray-700 mb-1">Rua</label>
-                <input name="complement" type="text" id="complement"
+                <label for="neighborhood" class="block text-sm font-semibold text-gray-700 ">Bairro</label>
+                <input name="neighborhood" type="text" id="neighborhood" value="{{ old('neighborhood') }}"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                @error('neighborhood')
+                    <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                @enderror
             </div>
 
-            <!-- Endereço - Rua -->
+
+            <!-- Endereço - commplemento -->
             <div class="mb-4">
-                <label for="neighborhood" class="block text-sm font-semibold text-gray-700 mb-1">Rua</label>
-                <input name="neighborhood" type="text" id="neighborhood"
+                <label for="complement" class="block text-sm font-semibold text-gray-700 ">Complemento</label>
+                <input name="complement" type="text" id="complement" value="{{ old('complement') }}"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                @error('complement')
+                    <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Observações -->
             <div class="mb-6">
-                <label for="observation" class="block text-sm font-semibold text-gray-700 mb-1">Observações</label>
-                <textarea name="observation" id="observation" rows="3"
+                <label for="observation" class="block text-sm font-semibold text-gray-700 ">Observações</label>
+                <textarea name="observation" id="observation" rows="3" value="{{ old('observation') }}"
                     class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"></textarea>
+                @error('observation')
+                    <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
+                @enderror
             </div>
+
 
             <!-- Ações -->
             <div class="flex justify-end gap-3">

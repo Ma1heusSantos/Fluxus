@@ -16,9 +16,14 @@ class Desk extends Model
     {
         return $this->hasMany(Entry::class);
     }
+
+    public function bills(): HasMany
+    {
+        return $this->hasMany(Bill::class);
+    }
     
     public function outflows(): HasMany
     {
-        return $this->hasMany(Entry::class);
+        return $this->hasMany(Outflow::class);
     }
 }

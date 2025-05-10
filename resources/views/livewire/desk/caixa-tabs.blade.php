@@ -1,6 +1,4 @@
 <div>
-
-    {{-- Tabs --}}
     <div class="ml-4">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="me-2">
@@ -30,11 +28,11 @@
     {{-- Conteúdo da Tab --}}
     <div class="p-4">
         @if ($tabSelecionada === 'entrada')
-            @livewire('desk.entrada')
+            @livewire('desk.entrada', ['desk' => $desk])
         @elseif($tabSelecionada === 'saida')
-            @livewire('desk.saida')
+            @livewire('desk.saida', ['desk' => $desk])
         @elseif($tabSelecionada === 'contas')
-            @livewire('desk.contas-recebidas')
+            @livewire('desk.contas-recebidas', ['desk' => $desk])
         @endif
     </div>
 </div>

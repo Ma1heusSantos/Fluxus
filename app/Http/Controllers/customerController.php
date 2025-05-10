@@ -35,8 +35,8 @@ class customerController extends Controller
             'observation'=> 'nullable|string|max:100',
             
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|regex:/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/',
-            'cpf' => 'required|string|size:11|unique:customers,cpf',
+            'phone' => 'required|string',
+            'cpf' => 'required|string|size:14|unique:customers,cpf',
         ]);
 
         
@@ -65,11 +65,15 @@ class customerController extends Controller
 
             session()->flash('global-success',true);
             session()->flash('message', 'Cliente criado com sucesso!');
-            return redirect()->route('customer.show');
+            return redirect()->route('create.entry');
             
         }catch(Exception $e){
-            Log::error($e->getMessage());
-            session()->flash('global-error',true);
+            Log::error('Erro ao criar Cliente: ' . $e->getMessage());
+
+            session()->flash('global-error', true);
+            session()->flash('message', 'Ocorreu um erro ao criar o cliente.');
+    
+            return redirect()->back()->withInput();
         }
     }
 
