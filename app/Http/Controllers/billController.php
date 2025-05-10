@@ -80,23 +80,29 @@ class billController extends Controller
                     'product_name' => $request->product_name
                 ]);
             }
-            
 
-            Entry::create([
-                'customer_id'=>$request->customer_id,
-                'value'=>$request->entry,
-                'method_id'=> $request->methodsPayment,
-                'desk_id'=> $request->desk_id
-            ]);
-    
+            if($request->entry != null){
+                Entry::create([
+                    'customer_id'=>$request->customer_id,
+                    'value'=>$request->entry,
+                    'method_id'=> $request->methodsPayment,
+                    'desk_id'=> $request->desk_id
+                ]);
+            }
+        
             session()->flash('global-success',true);
             session()->flash('message', 'Conta criada com sucesso!');
             return redirect()->route('customer.show');
             
         }catch(Exception $e){
-            Log::error($e->getMessage());
-            session()->flash('global-error',true);
+            Log::error('Erro ao criar conta: ' . $e->getMessage());
+
+            session()->flash('global-error', true);
+            session()->flash('message', 'Ocorreu um erro ao criar a conta.');
+    
+            return redirect()->back()->withInput();
         }
+        
     }
 
     /**

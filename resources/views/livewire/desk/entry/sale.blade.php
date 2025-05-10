@@ -93,7 +93,7 @@
                                         <label for="value"
                                             class="block text-sm font-semibold text-gray-700 ">Valor</label>
                                         <input name="value" type="text" id="value" value="{{ old('value') }}"
-                                            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+                                            class="money w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
                                     </div>
                                     @error('value')
                                         <p class="text-red-500 text-sm mb-1">{{ $message }}</p>
