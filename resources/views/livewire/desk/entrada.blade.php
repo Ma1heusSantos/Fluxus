@@ -30,7 +30,8 @@
                                     {{ $entry->customer->name ?? 'Venda Rápida' }}
                                 </td>
                                 <td class="text-center">R$ {{ $entry->value }}</td>
-                                <td class="text-center">{{ $entry->method_payment->description }}</td>
+                                <td class="text-center">{{ $entry->method_payment->description ?? 'Não informado' }}
+                                </td>
                                 <td>
                                     <a href="#" wire:click.prevent="removeEntry({{ $entry->id }})"
                                         title="Remover entrada"

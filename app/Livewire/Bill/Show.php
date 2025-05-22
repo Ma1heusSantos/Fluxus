@@ -7,9 +7,17 @@ use Livewire\Component;
 
 class Show extends Component
 {
+    public $search;
     public function render()
     {
-        $bills = Bill::with('desk')->with('customer')->get();
-        return view('livewire.bill.show',['bills'=>$bills]);
+        $bills = Bill::join('customers', 'bills.customer_id', '=', 'customers.id')
+                    ->where('customers.name', 'LIKE', '%' . $this->search . '%')
+                    ->orderBy('customers.name', 'asc')
+                    ->select('bills.*') 
+                    ->with(['desk', 'customer'])
+                    ->paginate(10);
+
+        return view('livewire.bill.show', ['bills' => $bills]);
+        
     }
 }

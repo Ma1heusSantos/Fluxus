@@ -14,6 +14,7 @@ Route::controller(DeskController::class)->group(function () {
         Route::get('/details/{id}', 'details')->name('desk.details');
         Route::get('/createEntry/{desk_id}', 'createEntry')->name('create.entry');
         Route::post('/quickSale', 'quickSale')->name('bill.quickSale');
+        Route::get('closeDesk/{id}','closeDesk')->name('close.desk');
     });
 })->middleware(['auth', 'verified']);
 
@@ -28,6 +29,7 @@ Route::controller(customerController::class)->group(function () {
 Route::controller(billController::class)->group(function () {
     Route::prefix('bill')->group(function () {
         Route::get('/show', 'show')->name('bill.show');
+        Route::get('/payment/{id}', 'payBill')->name('bill.pay');
         Route::post('/create', 'create')->name('bill.create');
     });
 })->middleware(['auth', 'verified']);

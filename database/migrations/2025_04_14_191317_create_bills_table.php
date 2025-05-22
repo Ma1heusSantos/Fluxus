@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->integer('name');
             $table->unsignedBigInteger('desk_id');
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('id_desk_payment')->nullable();
             $table->date('date');
             $table->float('entry')->nullable();
             $table->integer('allotment');
             $table->date('expiration_data');
             $table->float('value');
             $table->string('product_name');
-            $table->enum('status',['paga','pendente']);
+            $table->enum('status',['pago','pendente']);
             $table->timestamps();
 
             $table->foreign('desk_id')->references('id')->on('desks')->onDelete('cascade');

@@ -10,7 +10,7 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['desk_id','customer_id','date','allotment','product_name','status','expiration_data','value'];
+    protected $fillable = ['name','desk_id','customer_id','date','allotment','product_name','status','expiration_data','value','id_desk_payment'];
     
     public function desk():BelongsTo
     {

@@ -1,42 +1,85 @@
- <!-- Recebidos -->
- <div class="bg-white p-6 rounded shadow mb-4">
-     <div class="flex justify-between items-center mb-4">
-         <h2 class="text-lg font-semibold">Contas Recebidas</h2>
-         <button id="openModal" class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">Receber</button>
-     </div>
-     <div class="overflow-x-auto">
-         <table class="w-full text-left text-sm">
-             <thead>
-                 <tr class="border-b text-gray-500">
-                     <th class="py-2">CLIENTE</th>
-                     <th>VALOR</th>
-                     <th>PARCELAS</th>
-                     <th>STATUS</th>
-                     <th>AÇÕES</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 <tr class="border-b hover:bg-gray-50">
-                     <td class="py-2 flex items-center gap-2">
-                         <img src="{{ asset('image/men.png') }}" class="w-6 h-6 rounded-full" />
-                         João Silva
-                     </td>
-                     <td>R$ 1.500,00</td>
-                     <td>6/12</td>
-                     <td><span class="text-xs text-white bg-green-500 px-2 py-1 rounded">Em dia</span></td>
-                     <td><span class="text-xl cursor-pointer">&#8942;</span></td>
-                 </tr>
-                 <tr class="hover:bg-gray-50">
-                     <td class="py-2 flex items-center gap-2">
-                         <img src="{{ asset('image/woman.png') }}" class="w-6 h-6 rounded-full" />
-                         Maria Santos
-                     </td>
-                     <td>R$ 2.800,00</td>
-                     <td>3/24</td>
-                     <td><span class="text-xs text-white bg-yellow-400 px-2 py-1 rounded">Pendente</span></td>
-                     <td><span class="text-xl cursor-pointer">&#8942;</span></td>
-                 </tr>
-             </tbody>
-         </table>
-     </div>
- </div>
+<div class="bg-white p-6 rounded shadow mb-4">
+    <input placeholder="Pesquise por uma conta" wire:model.live="search"
+        class="w-full border-2 border-grey-500 rounded p-2 mb-4" type="text">
+    @if (session()->has('message'))
+    @endif
+
+    @if ($bills->isNotEmpty())
+        <div class="bg-white p-6 rounded shadow mb-4">
+            <h1 class="text-lg font-semibold mb-4">Contas</h1>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b text-gray-500">
+                            <th class="py-2 px-4">Parcela</th>
+                            <th class="py-2 px-4">Cliente</th>
+                            <th class="py-2 px-4">Valor</th>
+                            <th class="text-center">Data de vencimento</th>
+                            <th class="text-center">Parcela</th>
+                            <th class="py-2 px-4 text-center">Produto</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Caixa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($bills as $bill)
+                            <tr class="border-b hover:bg-gray-100 transition duration-150 ease-in-out">
+                                <td class="px-4 py-3 text-gray-700 text-sm whitespace-nowrap">
+                                    {{ $bill->name }}
+                                </td>
+                                <td class="px-4 py-3 text-gray-700 text-sm whitespace-nowrap">
+                                    {{ $bill->customer->name }}
+                                </td>
+                                <td class="px-4 py-3 text-gray-700 text-sm whitespace-nowrap">
+                                    {{ 'R$ ' . number_format($bill->value ?? 0, 2, ',', '.') }}
+                                </td>
+
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block text-xs font-semibold text-white bg-green-500 px-3 py-1 rounded-full shadow-sm">
+                                        {{ \Carbon\Carbon::parse($bill->expiration_data)->translatedFormat('j \d\e F \d\e Y') }}
+                                    </span>
+                                </td>
+
+                                <td class="px-4 py-3 text-center">
+                                    <span class="inline-block text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                        {{ $bill->allotment }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span class="inline-block text-xs font-semibold  px-3 py-1 rounded-full shadow-sm">
+                                        {{ $bill->product_name }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    @if ($bill->status == 'pago')
+                                        <span
+                                            class="inline-block text-xs font-semibold text-white bg-green-500 px-3 py-1 rounded-full shadow-sm">
+                                            {{ $bill->status }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="inline-block text-xs font-semibold text-white bg-red-500 px-3 py-1 rounded-full shadow-sm">
+                                            {{ $bill->status }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span class="inline-block text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                        {{ \Carbon\Carbon::parse($bill->desk->date)->translatedFormat('j \d\e F \d\e Y') }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="">
+            {{ $bills->links() }}
+        </div>
+    @else
+        <p class="text-center mt-4">Nenhuma conta cadastrada.</p>
+    @endif
+</div>

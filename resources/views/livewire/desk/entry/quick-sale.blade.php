@@ -34,7 +34,7 @@
             <label for="methodsPayment" class="block text-sm font-semibold text-gray-700">
                 Método de Pagamento
             </label>
-            <select name="methodsPayment" id="methodsPayment"
+            <select required name="methodsPayment" id="methodsPayment"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
                 <option disabled selected value="">Selecione uma opção</option>
                 @foreach ($methodsPayment as $method)

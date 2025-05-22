@@ -36,6 +36,28 @@ class DeskController extends Controller
         //
     }
 
+    public function closeDesk($id){
+        try{
+            $desk = Desk::find($id);
+            $desk->update([
+                'status' => 'closed'
+            ]);
+
+            session()->flash('global-success',true);
+            session()->flash('message', 'Caixa fechado com sucesso!');
+            return redirect()->route('show');
+
+        }catch(Exception $e){
+
+            Log::error('Erro ao fechar o caixa: ' . $e->getMessage());
+
+            session()->flash('global-error', true);
+            session()->flash('message', 'Ocorreu um erro ao fechar o caixa.');
+    
+            return redirect()->back()->withInput();
+        }
+    }
+
     public function newDesk(){
         return view('desk.newDesk');
     }

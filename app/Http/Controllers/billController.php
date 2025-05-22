@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use function App\Helpers\getDeskOpen;
 
 class billController extends Controller
 {
@@ -52,12 +53,14 @@ class billController extends Controller
         $request->validate([
             "entry" => "nullable|string",
             "allotment" => "required|integer|min:1",
-            "value" => "required|numeric|min:0.01",
+            "value" => "required|min:0.01",
             "product_name" => "required|string|max:255",
         ]);
         
 
         $allotment = (int) $request->allotment;
+        $value = (float) str_replace(',', '.', $request->value);
+        $entry = (float) str_replace(',', '.', $request->entry);
 
         
         try{
@@ -69,6 +72,7 @@ class billController extends Controller
                 $expiration_date = $this->getNextBusinessDay($expiration_date, $holidays);
 
                 Bill::create([
+                    'name'=> $i+1,
                     'date' => now()->format('Y/m/d'),
                     'status' => 'pendente',
                     'desk_id' => $request->desk_id,
@@ -76,7 +80,7 @@ class billController extends Controller
                     'customer_id' => $request->customer_id,
                     'entry' => $request->entry,
                     'allotment' => $request->allotment,
-                    'value' => $request->value,
+                    'value' => $value,
                     'product_name' => $request->product_name
                 ]);
             }
@@ -84,7 +88,7 @@ class billController extends Controller
             if($request->entry != null){
                 Entry::create([
                     'customer_id'=>$request->customer_id,
-                    'value'=>$request->entry,
+                    'value'=> $entry,
                     'method_id'=> $request->methodsPayment,
                     'desk_id'=> $request->desk_id
                 ]);
@@ -111,6 +115,17 @@ class billController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function payBill($id)
+    {
+        $bill = Bill::find($id);
+        $desk_id = getDeskOpen();
+        $bill->update([
+            'status'=> 'pago',
+            'id_desk_payment'=>$desk_id
+        ]);
+        return redirect()->route('bill.show');
     }
 
     /**
